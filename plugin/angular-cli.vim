@@ -1,23 +1,28 @@
-call CreateEditCommand('EComponent', 'ComponentFiles')
-call CreateEditCommand('ETemplate', 'TemplateFiles')
-call CreateEditCommand('EDirective', 'DirectiveFiles')
-call CreateEditCommand('EService', 'ServiceFiles')
-call CreateEditCommand('EPipe', 'PipeFiles')
-call CreateEditCommand('ENg', 'NgFiles')
-call CreateGenerateCommand('GComponent', 'component')
-call CreateGenerateCommand('GDirective', 'directive')
-call CreateGenerateCommand('GService', 'service')
-call CreateGenerateCommand('GPipe', 'pipe')
-call CreateGenerateCommand('GClass', 'class')
-call CreateGenerateCommand('GInterface', 'interface')
-call CreateGenerateCommand('GEnum', 'enum')
-
-function! CreateEditCommand(command, listFunction)
-  silent execute 'command! -nargs=1 -complete=customlist,'. a:listFunction . ' ' . a:command . ' call EditFile(<f-args>)'
+function! CreateEditCommands()
+  let elements = 
+        \[ 'Component',
+        \  'Template',
+        \  'Directive',
+        \  'Service',
+        \  'Pipe',
+        \  'Ng' ]
+  for element in elements
+    silent execute 'command! -nargs=1 -complete=customlist,'. element . 'Files E' . element . ' call EditFile(<f-args>)'
+  endfor
 endfunction
 
-function! CreateGenerateCommand(command, type)
-  silent execute 'command! -nargs=1 -bang ' . a:command . ' ' . 'call Generate("'.a:type.'", <args>)'
+function! CreateGenerateCommands()
+  let elements = 
+        \[ 'Component',
+        \  'Template',
+        \  'Directive',
+        \  'Service',
+        \  'Class',
+        \  'Interface',
+        \  'Enum' ]
+  for element in elements
+    silent execute 'command! -nargs=1 -bang G' . element . ' call Generate("'.tolower(element).'", <q-args>)'
+  endfor
 endfunction
 
 function! ComponentFiles(A,L,P)
@@ -70,3 +75,6 @@ endfunction
 function! EditFile(file)
   execute 'edit' g:global_files[a:file]
 endfunction
+
+call CreateEditCommands()
+call CreateGenerateCommands()
