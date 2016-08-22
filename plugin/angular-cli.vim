@@ -58,7 +58,7 @@ function! DirectiveFiles(A,L,P)
 endfunction
 
 function! TemplateFiles(A,L,P)
-  return Files('html')
+  return Files('html', a:A)
 endfunction
 
 function! ServiceFiles(A,L,P)
