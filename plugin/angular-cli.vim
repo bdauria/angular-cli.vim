@@ -74,7 +74,7 @@ function! SpecFiles(A,L,P)
 endfunction
 
 function! NgFiles(A,L,P)
-  return Files('.ts', a:A)
+  return Files('ts', a:A)
 endfunction
 
 function! DestroyElement(file)
@@ -104,7 +104,12 @@ function! Files(extension,A)
 endfunction
 
 function! EditFile(file, command)
-  execute a:command g:global_files[a:file]
+  let fileToEdit = has_key(g:global_files, a:file)?  g:global_files[a:file] : a:file . '.ts'
+  if filereadable(fileToEdit)
+    execute a:command fileToEdit
+  else
+    echoerr fileToEdit . ' was not found'
+  endif
 endfunction
 
 function! EditSpecFile(file, command)
