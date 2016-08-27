@@ -105,7 +105,7 @@ endfunction
 
 function! EditFile(file, command)
   let fileToEdit = has_key(g:global_files, a:file)?  g:global_files[a:file] : a:file . '.ts'
-  if filereadable(fileToEdit)
+  if !empty(glob(fileToEdit))
     execute a:command fileToEdit
   else
     echoerr fileToEdit . ' was not found'
