@@ -82,7 +82,7 @@ function! DestroyElement(file)
 endfunction
 
 function! Generate(type, name)
-  call ExecuteNgCommand('g ' . a:type . ' ' . a:name
+  call ExecuteNgCommand('g ' . a:type . ' ' . a:name)
 endfunction
 
 function! Files(extension,A)
