@@ -1,5 +1,9 @@
-if !exists("g:angular_cli_use_dispatch")
+if !exists('g:angular_cli_use_dispatch')
   let g:angular_cli_use_dispatch = 0
+endif
+
+if !exists('g:angular_cli_stylesheet_format')
+  let g:angular_cli_stylesheet_format = 'css'
 endif
 
 function! ExecuteNgCommand(args)
@@ -15,6 +19,7 @@ function! CreateEditCommands()
   let elements = 
         \[ 'Component',
         \  'Template',
+        \  'Stylesheet',
         \  'Directive',
         \  'Service',
         \  'Pipe',
@@ -75,6 +80,10 @@ endfunction
 
 function! NgFiles(A,L,P)
   return Files('ts', a:A)
+endfunction
+
+function! StylesheetFiles(A,L,P)
+  return Files(g:angular_cli_stylesheet_format, a:A)
 endfunction
 
 function! DestroyElement(file)
