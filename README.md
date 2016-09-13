@@ -19,6 +19,7 @@ The E command allows to open up an Angular file. The list of compatible file typ
 - Service
 - Pipe
 - Spec
+- Stylesheet
 - Ng (every other file type: Class, Interface, Enum...)
 
 For example, to open up the app.component.ts:
@@ -26,6 +27,14 @@ For example, to open up the app.component.ts:
 The command supports autocompletion for the corresponding file type. 
 
 if `ESpec` is called without arguments, it will try to open the spec file corresponding to the currently open buffer.
+
+If you're using sass or scss, you might want to add this to your .vimrc:
+
+`g:angular_cli_stylesheet_format = 'scss'`
+or
+`g:angular_cli_stylesheet_format = 'sass'`
+
+by default, the parameter is set to 'css'. 
 
 ## The V Command (VSplit)
 Similar to the E command, expect that the files are edited in a vertical split instead. 
