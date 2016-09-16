@@ -153,8 +153,9 @@ endfunction
 function! EditRelatedFile(file, command, target_extension)
   let file = a:file
   if file == ''
-    let source_extension = expand('%:e')
-    let file = substitute(expand('%'), '.' . source_extension,  '.' . a:target_extension, '')
+    let source_extension = '\.' . expand('%:e')
+    let file = substitute(expand('%'), source_extension,  '.' . a:target_extension, '')
+    echom file
     call EditFileIfExist(file, a:command, a:target_extension)
   else 
     call EditFileIfExist(a:file, a:command, a:target_extension)
