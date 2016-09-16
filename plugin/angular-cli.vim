@@ -16,25 +16,25 @@ function! ExecuteNgCommand(args)
 endfunction
 
 function! CreateEditCommands()
-  let elements = 
-        \[ 'Directive',
-        \  'Service',
-        \  'Pipe',
-        \  'Ng' ]
-  for element in elements
-    silent execute 'command! -nargs=1 -complete=customlist,'. element . 'Files E' . element . ' call EditFile(<f-args>, "edit")'
-    silent execute 'command! -nargs=1 -complete=customlist,'. element . 'Files V' . element . ' call EditFile(<f-args>, "vsplit")'
-  endfor
   let modes = 
         \[ ['E', 'edit'],
         \  ['V', 'vsplit'] ]
   for mode in modes
-    let elements = 
+    let elements_with_relation = 
           \[ ['Component', 'ts'],
           \  ['Template', 'html'],
+          \  ['Spec', 'spec.ts'],
           \  ['Stylesheet', g:angular_cli_stylesheet_format] ]
-    for element in elements
+    for element in elements_with_relation
       silent execute 'command! -nargs=? -complete=customlist,' . element[0] .'Files ' . mode[0] . element[0] . ' call EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
+    endfor
+    let elements_without_relation = 
+        \[ 'Directive',
+        \  'Service',
+        \  'Pipe',
+        \  'Ng' ]
+    for element in elements_without_relation
+      silent execute 'command! -nargs=1 -complete=customlist,'. element . 'Files ' mode[0] . element . ' call EditFile(<f-args>, "' . mode[1] .'")'
     endfor
   endfor
 
