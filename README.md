@@ -13,20 +13,21 @@ Ng test
 
 ## The E Command (Edit)
 The E command allows to open up an Angular file. The list of compatible file types are the following:
-- Component
-- Template (HTML files)
+- Component *
+- Template (HTML files) *
 - Directive
 - Service
 - Pipe
-- Spec
-- Stylesheet
+- Spec *
+- Stylesheet *
 - Ng (every other file type: Class, Interface, Enum...)
 
 For example, to open up the app.component.ts:
 ` EComponent app.component` (without the .ts extension)
 The command supports autocompletion for the corresponding file type. 
 
-if `ESpec` is called without arguments, it will try to open the spec file corresponding to the currently open buffer.
+The elements marked with '*' are available without arguments. In this case, the plugin will try to open the directly related file.
+for instance, if `ESpec` is called without arguments while editing the component app.component.ts, it will try to open the corresponding spec file, app.component.spec.ts.
 
 If you're using sass or scss, you might want to add this to your .vimrc:
 
