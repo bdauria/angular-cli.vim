@@ -56,6 +56,6 @@ To generate a component, simply use: `GComponent my-component`
 The plugin is compatible with Tim Pope's [vim-dispatch](https://github.com/tpope/vim-dispatch), by adding this to your .vimrc:
 `let g:angular_cli_use_dispatch = 1`
 
-There is still an issue with the output in the QuickFix Window, where unwanted formatting characters are displayed.
+This enables running the commands asynchronously and getting the output in a quickfix window after completion (useful for the Generate command)
 
-The plugin is still pretty much experimental, and every PR is welcome. 
+Any PR or Feature suggestion is welcome. 
