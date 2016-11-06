@@ -21,7 +21,7 @@ function! CreateEditCommands()
         \  ['V', 'vsplit'] ]
   for mode in modes
     let elements_with_relation = 
-          \[ ['Component', 'ts'],
+          \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
           \  ['Template', 'html'],
           \  ['Spec', 'spec.ts'],
@@ -145,23 +145,33 @@ endfunction
 function! EditSpecFile(file, command)
   let file = a:file
   if file == ''
-    let file = substitute(expand('%'), '.ts', '.spec.ts', '')
-    execute a:command file
-  else 
-    call EditFile(a:file, a:command)
-  endif
+    let file = substitute(expand('%'), '.ts', '.spec', '')
+  endif 
+    call EditFile(file, a:command)
 endfunction
 
 function! EditRelatedFile(file, command, target_extension)
   let file = a:file
   if file == ''
-    let source_extension = '\.' . expand('%:e')
+    let source_extension = GetSourceNgExtension()
     let file = substitute(expand('%'), source_extension,  '.' . a:target_extension, '')
-    echom file
     call EditFileIfExist(file, a:command, a:target_extension)
   else 
     call EditFileIfExist(a:file, a:command, a:target_extension)
   endif
+endfunction
+
+function! GetSourceNgExtension()
+  let extensions = 
+        \[ 'component',
+        \  'module',
+        \  'component.spec']
+  for extension in extensions
+    if expand('%e') =~ extension . '.ts'
+      return '.' . extension . '.ts'
+    endif
+  endfor
+  return '\.' . expand('%:e')
 endfunction
 
 call CreateEditCommands()
