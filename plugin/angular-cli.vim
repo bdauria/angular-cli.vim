@@ -22,6 +22,7 @@ function! CreateEditCommands()
   for mode in modes
     let elements_with_relation = 
           \[ ['Component', 'ts'],
+          \  ['Module', 'module.ts'],
           \  ['Template', 'html'],
           \  ['Spec', 'spec.ts'],
           \  ['Stylesheet', g:angular_cli_stylesheet_format] ]
@@ -46,6 +47,7 @@ function! CreateGenerateCommands()
   let elements = 
         \[ 'Component',
         \  'Template',
+        \  'Module',
         \  'Directive',
         \  'Service',
         \  'Class',
@@ -64,8 +66,8 @@ function! ComponentFiles(A,L,P)
   return Files('component.ts', a:A)
 endfunction
 
-function! DirectiveFiles(A,L,P)
-  return Files('component.ts', a:A)
+function! ModuleFiles(A,L,P)
+  return Files('module.ts', a:A)
 endfunction
 
 function! DirectiveFiles(A,L,P)
