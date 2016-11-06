@@ -14,6 +14,7 @@ Ng test
 ## The E Command (Edit)
 The E command allows to open up an Angular file. The list of compatible file types are the following:
 - Component *
+- Module *
 - Template (HTML files) *
 - Directive
 - Service
@@ -43,6 +44,7 @@ Similar to the E command, expect that the files are edited in a vertical split i
 ## The G Command (Generate)
 The G command is used to call directly the `ng g` shell command. It is compatible with the following file types:
 - Component
+- Module
 - Template
 - Directive
 - Service
