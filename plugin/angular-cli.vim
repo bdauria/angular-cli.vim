@@ -23,9 +23,9 @@ function! CreateEditCommands()
     let elements_with_relation = 
           \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
-          \  ['Template', 'html'],
+          \  ['Template', 'component.html'],
           \  ['Spec', 'spec.ts'],
-          \  ['Stylesheet', g:angular_cli_stylesheet_format] ]
+          \  ['Stylesheet', 'component.' . g:angular_cli_stylesheet_format] ]
     for element in elements_with_relation
       silent execute 'command! -nargs=? -complete=customlist,' . element[0] .'Files ' . mode[0] . element[0] . ' call EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
     endfor
@@ -163,12 +163,14 @@ endfunction
 
 function! GetSourceNgExtension()
   let extensions = 
-        \[ 'component',
-        \  'module',
+        \[ 'component.ts',
+        \  'module.ts',
+        \  'component.html',
+        \  'component.' . g:angular_cli_stylesheet_format,
         \  'component.spec']
   for extension in extensions
-    if expand('%e') =~ extension . '.ts'
-      return '.' . extension . '.ts'
+    if expand('%e') =~ extension
+      return '.' . extension
     endif
   endfor
   return '\.' . expand('%:e')
