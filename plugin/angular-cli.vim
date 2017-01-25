@@ -34,8 +34,8 @@ function! CreateEditCommands()
         \  'Service',
         \  'Pipe',
         \  'Ng' ]
-    for element in elements_without_relation
-      silent execute 'command! -nargs=1 -complete=customlist,'. element . 'Files ' mode[0] . element . ' call EditFile(<f-args>, "' . mode[1] .'")'
+    for elt in elements_without_relation
+      silent execute 'command! -nargs=1 -complete=customlist,'. elt . 'Files ' mode[0] . elt . ' call EditFile(<f-args>, "' . mode[1] .'")'
     endfor
   endfor
 
