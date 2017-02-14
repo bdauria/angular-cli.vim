@@ -18,7 +18,9 @@ endfunction
 function! CreateEditCommands()
   let modes = 
         \[ ['E', 'edit'],
-        \  ['V', 'vsplit'] ]
+        \  ['S', 'split'],
+        \  ['V', 'vsplit'],
+        \  ['T', 'tabnew'] ]
   for mode in modes
     let elements_with_relation = 
           \[ ['Component', 'component.ts'],
@@ -40,7 +42,9 @@ function! CreateEditCommands()
   endfor
 
   command! -nargs=? -complete=customlist,SpecFiles ESpec call EditSpecFile(<q-args>, 'edit')
+  command! -nargs=? -complete=customlist,SpecFiles SSpec call EditSpecFile(<q-args>, 'split')
   command! -nargs=? -complete=customlist,SpecFiles VSpec call EditSpecFile(<q-args>, 'vsplit')
+  command! -nargs=? -complete=customlist,SpecFiles TSpec call EditSpecFile(<q-args>, 'tabnew')
 endfunction
 
 function! CreateGenerateCommands()
