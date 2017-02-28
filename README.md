@@ -39,7 +39,7 @@ or
 by default, the parameter is set to 'css'. 
 
 ## The S, V, T Commands (Split, VSplit, Tabnew)
-Similar to the E command, except that the files are edited in a horizontal split (S), vertical split (V), new tab (T) respectively.
+Similar to the E command, that the files are edited with horizontal split (S), vertical split (V), new tab (T) respectively.
 
 ## The G Command (Generate)
 The G command is used to call directly the `ng g` shell command. It is compatible with the following file types:
