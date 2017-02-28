@@ -1,6 +1,6 @@
 " Added by lgalke 28/02/17 
 
-function! Angular-cli#init() abort
+function! angular-cli#init() abort
   call CreateEditCommands()
   call CreateGenerateCommands()
   command! -nargs=* Ng call ExecuteNgCommand(<q-args>)
