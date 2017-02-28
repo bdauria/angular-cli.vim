@@ -32,7 +32,7 @@ function! angular_cli#CreateEditCommands() abort
           \  ['Spec', 'spec.ts'],
           \  ['Stylesheet', 'component.' . g:angular_cli_stylesheet_format] ]
     for element in elements_with_relation
-      silent execute 'command! -nargs=? -complete=customlist,' . element[0] .'Files ' . mode[0] . element[0] . ' call angular_cli#EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
+      silent execute 'command! -nargs=? -complete=customlist,angular_cli#' . element[0] .'Files ' . mode[0] . element[0] . ' call angular_cli#EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
     endfor
     let elements_without_relation = 
         \[ 'Directive',
@@ -40,7 +40,7 @@ function! angular_cli#CreateEditCommands() abort
         \  'Pipe',
         \  'Ng' ]
     for elt in elements_without_relation
-      silent execute 'command! -nargs=1 -complete=customlist,'. elt . 'Files ' mode[0] . elt . ' call angular_cli#EditFile(<f-args>, "' . mode[1] .'")'
+      silent execute 'command! -nargs=1 -complete=customlist,angular_cli#'. elt . 'Files ' mode[0] . elt . ' call angular_cli#EditFile(<f-args>, "' . mode[1] .'")'
     endfor
   endfor
 
