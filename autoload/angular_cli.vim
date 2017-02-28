@@ -1,9 +1,9 @@
 " Added by lgalke 28/02/17 
 
 function! angular_cli#init() abort
-  call CreateEditCommands()
-  call CreateGenerateCommands()
-  command! -nargs=* Ng call ExecuteNgCommand(<q-args>)
+  call angular_cli#CreateEditCommands()
+  call angular_cli#CreateGenerateCommands()
+  command! -nargs=* Ng call angular_cli#ExecuteNgCommand(<q-args>)
 endfunction
 
 " The remaining functions are just prefixed by angular_cli# and suffixed by
