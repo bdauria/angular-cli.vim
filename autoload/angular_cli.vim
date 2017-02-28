@@ -44,10 +44,10 @@ function! angular_cli#CreateEditCommands() abort
     endfor
   endfor
 
-  command! -nargs=? -complete=customlist,SpecFiles ESpec call angular_cli#EditSpecFile(<q-args>, 'edit')
-  command! -nargs=? -complete=customlist,SpecFiles SSpec call angular_cli#EditSpecFile(<q-args>, 'split')
-  command! -nargs=? -complete=customlist,SpecFiles VSpec call angular_cli#EditSpecFile(<q-args>, 'vsplit')
-  command! -nargs=? -complete=customlist,SpecFiles TSpec call angular_cli#EditSpecFile(<q-args>, 'tabnew')
+  command! -nargs=? -complete=customlist,angular_cli#SpecFiles ESpec call angular_cli#EditSpecFile(<q-args>, 'edit')
+  command! -nargs=? -complete=customlist,angular_cli#SpecFiles SSpec call angular_cli#EditSpecFile(<q-args>, 'split')
+  command! -nargs=? -complete=customlist,angular_cli#SpecFiles VSpec call angular_cli#EditSpecFile(<q-args>, 'vsplit')
+  command! -nargs=? -complete=customlist,angular_cli#SpecFiles TSpec call angular_cli#EditSpecFile(<q-args>, 'tabnew')
 endfunction
 
 function! angular_cli#CreateGenerateCommands() abort
@@ -66,43 +66,43 @@ function! angular_cli#CreateGenerateCommands() abort
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
-  silent execute command! -nargs=1 -complete=customlist,NgFiles call angular_cli#DestroyElement(<f-args>)
+  silent execute command! -nargs=1 -complete=customlist,angular_cli#NgFiles call angular_cli#DestroyElement(<f-args>)
 endfunction
 
 function! angular_cli#ComponentFiles(A,L,P) abort
-  return Files('component.ts', a:A)
+  return angular_cli#Files('component.ts', a:A)
 endfunction
 
 function! angular_cli#ModuleFiles(A,L,P) abort
-  return Files('module.ts', a:A)
+  return angular_cli#Files('module.ts', a:A)
 endfunction
 
 function! angular_cli#DirectiveFiles(A,L,P) abort
-  return Files('directive.ts', a:A)
+  return angular_cli#Files('directive.ts', a:A)
 endfunction
 
 function! angular_cli#TemplateFiles(A,L,P) abort
-  return Files('html', a:A)
+  return angular_cli#Files('html', a:A)
 endfunction
 
 function! angular_cli#ServiceFiles(A,L,P) abort
-  return Files('service.ts', a:A)
+  return angular_cli#Files('service.ts', a:A)
 endfunction
 
 function! angular_cli#PipeFiles(A,L,P) abort
-  return Files('pipe.ts', a:A)
+  return angular_cli#Files('pipe.ts', a:A)
 endfunction
 
 function! angular_cli#SpecFiles(A,L,P) abort
-  return Files('spec.ts', a:A)
+  return angular_cli#Files('spec.ts', a:A)
 endfunction
 
 function! angular_cli#NgFiles(A,L,P) abort
-  return Files('ts', a:A)
+  return angular_cli#Files('ts', a:A)
 endfunction
 
 function! angular_cli#StylesheetFiles(A,L,P) abort
-  return Files(g:angular_cli_stylesheet_format, a:A)
+  return angular_cli#Files(g:angular_cli_stylesheet_format, a:A)
 endfunction
 
 function! angular_cli#DestroyElement(file) abort
