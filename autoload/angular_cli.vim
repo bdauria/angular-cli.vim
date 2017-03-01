@@ -160,7 +160,7 @@ endfunction
 function! angular_cli#EditRelatedFile(file, command, target_extension) abort
   let file = a:file
   if file == ''
-    let source_extension = GetSourceNgExtension()
+    let source_extension = angular_cli#GetSourceNgExtension()
     let file = substitute(expand('%'), source_extension,  '.' . a:target_extension, '')
     call angular_cli#EditFileIfExist(file, a:command, a:target_extension)
   else 
