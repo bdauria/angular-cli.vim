@@ -1,0 +1,13 @@
+if !exists('g:angular_cli_use_dispatch')
+  let g:angular_cli_use_dispatch = 0
+endif
+
+if !exists('g:angular_cli_stylesheet_format')
+  let g:angular_cli_stylesheet_format = 'css'
+endif
+
+
+" Moved to angular_cli#init() to be called manually by users.
+" call CreateEditCommands()
+" call CreateGenerateCommands()
+" command! -nargs=* Ng call ExecuteNgCommand(<q-args>)
