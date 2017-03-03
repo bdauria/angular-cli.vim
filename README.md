@@ -4,6 +4,30 @@ a Vim Plugin for angular-cli <br />
 angular-cli.vim provides a support for [angular-cli](https://github.com/angular/angular-cli), directly inside Vim. It allows the interaction with the cli without having to leave the editor, and also benefit from some comfort features such as autocompletion, split file opening, spec file for the current file opening...
 The plugin is based on the idea of Time Pope's [rails.vim](https://github.com/tpope/vim-rails)
 
+## Activation
+
+The command namespace is not cluttered unconditionally.
+All commands are created on invocation of the function `angular_cli#init()`.
+Thus, you can manually activate angular-cli by `call angular_cli#init()`
+or automatically initialize the commands depending on your typical setting for angular projects:
+
+### On a filetype basis
+
+```vim
+autocmd FileType typescript,html call angular_cli#init()`
+```
+
+Commands will be available in all typescript and html files.
+
+### By indicator file
+
+```vim
+autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angular_cli#init() | endif
+```
+
+Commands will be available if the current or the parent directory contains `@angular` inside `node_modules`.
+
+
 ## The Ng Command
 The Ng command (:Ng) simply calls the ng shell command with whatever argument it folows. You can use it with all the options available, for instance:
 ```
@@ -60,3 +84,4 @@ The plugin is compatible with Tim Pope's [vim-dispatch](https://github.com/tpope
 ```let g:angular_cli_use_dispatch = 1```
 
 Any PR or Feature suggestion is welcome. 
+
