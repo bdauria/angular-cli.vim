@@ -152,9 +152,15 @@ endfunction
 function! angular_cli#EditSpecFile(file, command) abort
   let file = a:file
   if file == ''
-    let file = substitute(expand('%'), '.ts', '.spec', '')
+    let base_file = substitute(expand('%'), '.html', '', '')
+    let base_file = substitute(base_file, '.ts', '', '')
+    let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
+    let file = base_file . '.spec.ts'
   endif 
-    call angular_cli#EditFile(file, a:command)
+  if expand('%') =~ 'component.spec.ts'
+    return
+  endif
+    call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
 
 function! angular_cli#EditRelatedFile(file, command, target_extension) abort
@@ -174,7 +180,7 @@ function! angular_cli#GetSourceNgExtension() abort
         \  'module.ts',
         \  'component.html',
         \  'component.' . g:angular_cli_stylesheet_format,
-        \  'component.spec']
+        \  'component.spec.ts']
   for extension in extensions
     if expand('%e') =~ extension
       return '.' . extension
