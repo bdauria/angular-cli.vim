@@ -78,14 +78,15 @@ The G command is used to call directly the `ng g` shell command. It is compatibl
 
 To generate a component, simply use: `GComponent my-component`
 
-## Adapted keyword program
+## Adapted keyword program option
 
-Upon calling `angular_cli#init()`, the `keywordprg` option will be set to `ng
-doc`.  So that keyword lookup (by pressing `K`) will initiate a search in
-angular's online documentation. If you want to retain vim's default behaviour
-(`man`) for keyword search, you can provide `let angular_cli_retain_keywordprg
-= 1`.
+Upon calling `angular_cli#init()`, the `keywordprg` option will be set to `ng doc`.  Thus, keyword lookup (by pressing `K`) will initiate a search in angular's online documentation. If you want to retain vim's default behaviour (`man`) for keyword search, you can provide:
 
+```vim
+
+let g:angular_cli_retain_keywordprg = 1
+
+```
 
 ## Dispatch support
 The plugin is compatible with Tim Pope's [vim-dispatch](https://github.com/tpope/vim-dispatch), by adding this to your .vimrc:
