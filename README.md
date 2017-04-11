@@ -29,7 +29,7 @@ Commands will be available if the current or the parent directory contains `@ang
 
 
 ## The Ng Command
-The Ng command (:Ng) simply calls the ng shell command with whatever argument it folows. You can use it with all the options available, for instance:
+The Ng command (:Ng) simply calls the ng shell command with whatever argument it follows. You can use it with all the options available, for instance:
 ```
 Ng build
 Ng test
@@ -77,6 +77,16 @@ The G command is used to call directly the `ng g` shell command. It is compatibl
 - Enum
 
 To generate a component, simply use: `GComponent my-component`
+
+## Adapted keyword program option
+
+Upon calling `angular_cli#init()`, the `keywordprg` option will be set to `ng doc`.  Thus, keyword lookup (by pressing `K`) will initiate a search in angular's online documentation. If you want to retain vim's default behaviour (`man`) for keyword search, you can provide:
+
+```vim
+
+let g:angular_cli_retain_keywordprg = 1
+
+```
 
 ## Dispatch support
 The plugin is compatible with Tim Pope's [vim-dispatch](https://github.com/tpope/vim-dispatch), by adding this to your .vimrc:

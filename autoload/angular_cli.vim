@@ -4,6 +4,9 @@ function! angular_cli#init() abort
   call angular_cli#CreateEditCommands()
   call angular_cli#CreateGenerateCommands()
   command! -nargs=* Ng call angular_cli#ExecuteNgCommand(<q-args>)
+  if !exists('g:angular_cli_retain_keywordprg') 
+    setlocal keywordprg=ng\ doc
+  endif
 endfunction
 
 " The remaining functions are just prefixed by angular_cli# and suffixed by
