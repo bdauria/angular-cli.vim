@@ -57,6 +57,7 @@ function! angular_cli#CreateGenerateCommands() abort
         \  'Module',
         \  'Directive',
         \  'Service',
+        \  'Pipe',
         \  'Class',
         \  'Interface',
         \  'Enum' ]
