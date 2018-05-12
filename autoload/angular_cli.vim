@@ -1,6 +1,7 @@
 " Added by lgalke 28/02/17 
 
 function! angular_cli#init() abort
+  call angular_cli#CreateDefaultStyleExt()
   call angular_cli#CreateEditCommands()
   call angular_cli#CreateGenerateCommands()
   command! -nargs=* Ng call angular_cli#ExecuteNgCommand(<q-args>)
@@ -35,10 +36,11 @@ function! angular_cli#CreateEditCommands() abort
       silent execute 'command! -nargs=? -complete=customlist,angular_cli#' . element[0] .'Files ' . mode[0] . element[0] . ' call angular_cli#EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
     endfor
     let elements_without_relation = 
-        \[ 'Directive',
-        \  'Service',
-        \  'Pipe',
-        \  'Ng' ]
+          \[ 'Directive',
+          \  'Service',
+          \  'Pipe',
+          \  'Guard',
+          \  'Ng' ]
     for elt in elements_without_relation
       silent execute 'command! -nargs=1 -complete=customlist,angular_cli#'. elt . 'Files ' mode[0] . elt . ' call angular_cli#EditFile(<f-args>, "' . mode[1] .'")'
     endfor
@@ -58,12 +60,18 @@ function! angular_cli#CreateGenerateCommands() abort
         \  'Directive',
         \  'Service',
         \  'Pipe',
+        \  'Guard',
         \  'Class',
         \  'Interface',
         \  'Enum' ]
   for element in elements
     silent execute 'command! -nargs=1 -bang G' . element . ' call angular_cli#Generate("'.tolower(element).'", <q-args>)'
   endfor
+endfunction
+
+function! angular_cli#CreateDefaultStyleExt() abort
+  let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
+  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . ' .angular-cli.json')[:-2]
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
@@ -92,6 +100,10 @@ endfunction
 
 function! angular_cli#PipeFiles(A,L,P) abort
   return angular_cli#Files('pipe.ts', a:A)
+endfunction
+
+function! angular_cli#GuardFiles(A,L,P) abort
+  return angular_cli#Files('guard.ts', a:A)
 endfunction
 
 function! angular_cli#SpecFiles(A,L,P) abort
@@ -161,7 +173,7 @@ function! angular_cli#EditSpecFile(file, command) abort
   if expand('%') =~ 'component.spec.ts'
     return
   endif
-    call angular_cli#EditFileIfExist(file, a:command, '.ts')
+  call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
 
 function! angular_cli#EditRelatedFile(file, command, target_extension) abort
