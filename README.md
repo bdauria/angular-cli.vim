@@ -43,6 +43,7 @@ The E command allows to open up an Angular file. The list of compatible file typ
 - Directive
 - Service
 - Pipe
+- Guard
 - Spec *
 - Stylesheet *
 - Ng (every other file type: Class, Interface, Enum...)
@@ -54,13 +55,7 @@ The command supports autocompletion for the corresponding file type.
 The elements marked with '*' are available without arguments. In this case, the plugin will try to open the directly related file.
 for instance, if `ESpec` is called without arguments while editing the component app.component.ts, it will try to open the corresponding spec file, app.component.spec.ts.
 
-If you're using sass or scss, you might want to add this to your .vimrc:
-
-`g:angular_cli_stylesheet_format = 'scss'`
-or
-`g:angular_cli_stylesheet_format = 'sass'`
-
-by default, the parameter is set to 'css'. 
+Stylesheet format is set automatically to the corresponding styleExt value from `.angular-cli.json`.
 
 ## The S, V, T Commands (Split, VSplit, Tabnew)
 Similar to the E command, except that the files are edited in a horizontal split (S), vertical split (V), new tab (T) respectively.
@@ -72,6 +67,8 @@ The G command is used to call directly the `ng g` shell command. It is compatibl
 - Template
 - Directive
 - Service
+- Pipe
+- Guard
 - Class
 - Interface
 - Enum
