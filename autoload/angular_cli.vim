@@ -168,7 +168,11 @@ function! angular_cli#EditSpecFile(file, command) abort
   if file == ''
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
-    let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
+
+    " just cover everything
+    let base_file = substitute(base_file, '.css', '', '')
+    let base_file = substitute(base_file, '.scss', '', '')
+    let base_file = substitute(base_file, '.less', '', '')
     let file = base_file . '.spec.ts'
   endif 
   if expand('%') =~ 'component.spec.ts'
