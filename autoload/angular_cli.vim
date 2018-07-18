@@ -71,7 +71,12 @@ endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
   let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
-  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . ' .angular-cli.json')[:-2]
+  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . ' .angular-cli.json')[:-2]
+  " assuming the correct grep command is set, if this is loaded but no
+  " .angular-cli is found, its probably ionic3 (scss)
+  if v:shell_error
+    g:angular_cli_stylesheet_format = 'scss'
+  endif
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
@@ -167,7 +172,11 @@ function! angular_cli#EditSpecFile(file, command) abort
   if file == ''
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
-    let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
+
+    " just cover everything
+    let base_file = substitute(base_file, '.css', '', '')
+    let base_file = substitute(base_file, '.scss', '', '')
+    let base_file = substitute(base_file, '.less', '', '')
     let file = base_file . '.spec.ts'
   endif 
   if expand('%') =~ 'component.spec.ts'
