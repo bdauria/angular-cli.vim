@@ -170,6 +170,9 @@ function! angular_cli#EditFileIfExist(file, command, extension) abort
 endfunction
 
 function! angular_cli#EditSpecFile(file, command) abort
+  "TODO: check the jump list: if the most recent jump was from a file with the
+  "same base name (i.e. home.whatever.spec.ts -> home.whatever.html) then
+  ":ESpec will jump back. Maybe vim-go's :GoAlternate handles this better.
   let file = a:file
   if file == ''
     let base_file = substitute(expand('%'), '.html', '', '')
