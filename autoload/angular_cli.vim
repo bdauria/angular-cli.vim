@@ -26,6 +26,8 @@ function! angular_cli#CreateEditCommands() abort
         \  ['V', 'vsplit'],
         \  ['T', 'tabnew'] ]
   for mode in modes
+    " TODO: ionic 4 with angular 6+ uses component.html and page.html, an
+    " elegant solution will solve for both.
     let elements_with_relation = 
           \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
@@ -70,9 +72,13 @@ function! angular_cli#CreateGenerateCommands() abort
 endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
-  let re = "\'" . '(?<=(?i)styleext.:..)\w+' . "\'"
-  let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' angular.json'
-  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . target)[:-2]
+  let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
+  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . ' .angular-cli.json')[:-2]
+  " assuming the correct grep command is set, if this is loaded but no
+  " .angular-cli is found, its probably ionic3 (scss)
+  if v:shell_error
+    g:angular_cli_stylesheet_format = 'scss'
+  endif
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
