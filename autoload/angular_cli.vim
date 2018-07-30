@@ -70,10 +70,10 @@ function! angular_cli#CreateGenerateCommands() abort
 endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
-  let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
-  let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' .angular.json'
+  let re = "\'" . '(?<=(?i)styleext.:..)\w+' . "\'"
+  let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' angular.json'
   let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . target)[:-2]
-
+  echom g:angular_cli_stylesheet_format
   " if this plugin was loaded but no ng config found, assume ionic 
   " (default .scss)
   if v:shell_error
@@ -179,7 +179,8 @@ function! angular_cli#EditSpecFile(file, command) abort
     let g:last_file_jump = expand('%')
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
-    let file = base_file . '.spec.ts'
+    let base_file = substitute(base_file, g:angular_cli_stylesheet_format, '', '')
+    let file = base_file . 'component.spec.ts'
   endif 
   call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
