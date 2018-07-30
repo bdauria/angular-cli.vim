@@ -26,8 +26,6 @@ function! angular_cli#CreateEditCommands() abort
         \  ['V', 'vsplit'],
         \  ['T', 'tabnew'] ]
   for mode in modes
-    " TODO: ionic 4 with angular 6+ uses component.html and page.html, an
-    " elegant solution will solve for both.
     let elements_with_relation = 
           \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
@@ -73,9 +71,11 @@ endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
   let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
-  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . ' .angular-cli.json')[:-2]
-  " assuming the correct grep command is set, if this is loaded but no
-  " .angular-cli is found, its probably ionic3 (scss)
+  let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' .angular.json'
+  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . target)[:-2]
+
+  " if this plugin was loaded but no ng config found, assume ionic 
+  " (default .scss)
   if v:shell_error
     g:angular_cli_stylesheet_format = 'scss'
   endif
@@ -170,23 +170,17 @@ function! angular_cli#EditFileIfExist(file, command, extension) abort
 endfunction
 
 function! angular_cli#EditSpecFile(file, command) abort
-  "TODO: check the jump list: if the most recent jump was from a file with the
-  "same base name (i.e. home.whatever.spec.ts -> home.whatever.html) then
-  ":ESpec will jump back. Maybe vim-go's :GoAlternate handles this better.
   let file = a:file
   if file == ''
+    if expand('%') =~ 'component.spec.ts'
+      execute 'edit' g:last_file_jump
+      return
+    endif
+    let g:last_file_jump = expand('%')
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
-
-    " just cover everything
-    let base_file = substitute(base_file, '.css', '', '')
-    let base_file = substitute(base_file, '.scss', '', '')
-    let base_file = substitute(base_file, '.less', '', '')
     let file = base_file . '.spec.ts'
   endif 
-  if expand('%') =~ 'component.spec.ts'
-    return
-  endif
   call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
 
