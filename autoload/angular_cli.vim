@@ -30,7 +30,7 @@ function! angular_cli#CreateEditCommands() abort
           \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
           \  ['Template', 'component.html'],
-          \  ['Spec', 'spec.ts'],
+          \  ['Spec', 'component.spec.ts'],
           \  ['Stylesheet', 'component.' . g:angular_cli_stylesheet_format] ]
     for element in elements_with_relation
       silent execute 'command! -nargs=? -complete=customlist,angular_cli#' . element[0] .'Files ' . mode[0] . element[0] . ' call angular_cli#EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
@@ -178,8 +178,8 @@ function! angular_cli#EditSpecFile(file, command) abort
     let g:last_file_jump = expand('%')
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
-    let base_file = substitute(base_file, g:angular_cli_stylesheet_format, '', '')
-    let file = base_file . 'component.spec.ts'
+    let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
+    let file = base_file . '.spec.ts'
   endif 
   call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
