@@ -76,7 +76,7 @@ function! angular_cli#CreateDefaultStyleExt() abort
   " if this plugin was loaded but no ng config found, assume ionic 
   " (default .scss)
   if v:shell_error
-    let g:angular_cli_stylesheet_format = 'scss'
+    let g:angular_cli_stylesheet_format = 'css'
   endif
 endfunction
 

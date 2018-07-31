@@ -55,7 +55,13 @@ The command supports autocompletion for the corresponding file type.
 The elements marked with '*' are available without arguments. In this case, the plugin will try to open the directly related file.
 for instance, if `ESpec` is called without arguments while editing the component app.component.ts, it will try to open the corresponding spec file, app.component.spec.ts.
 
-Stylesheet format is set automatically to the corresponding styleExt value from `.angular-cli.json`.
+`ESpec` will also try to bounce you back to the file you left as long as you don't leave the buffer.
+
+Stylesheet format is set automatically to the corresponding styleExt value from `angular.json` or `.angular-cli.json` depending on the project version.  
+
+If neither exists, and `g:angular_cli_stylesheet_format` is not set manually, assume an Ionic project triggered the plugin and set to `scss`.
+
+**Note to macOS users:** macOS grep is not compatible with GNU grep. You can install GNU grep under a different name (ggrep or whatever) and set `g:gnu_grep = 'ggrep'` to fix stylesheet autodetection if you don't want to set it manually for every project. (If you overwrite the system grep command with GNU grep then you're good)
 
 ## The S, V, T Commands (Split, VSplit, Tabnew)
 Similar to the E command, except that the files are edited in a horizontal split (S), vertical split (V), new tab (T) respectively.
