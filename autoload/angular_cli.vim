@@ -70,8 +70,9 @@ function! angular_cli#CreateGenerateCommands() abort
 endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
-  let re = "\'" . '(?<=styleExt.:..).+(?=..)' . "\'"
-  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . ' .angular-cli.json')[:-2]
+  let re = "\'" . '(?<=(?i)styleext.:..)\w+' . "\'"
+  let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' angular.json'
+  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . target)[:-2]
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
