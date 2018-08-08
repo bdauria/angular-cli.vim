@@ -30,7 +30,7 @@ function! angular_cli#CreateEditCommands() abort
           \[ ['Component', 'component.ts'],
           \  ['Module', 'module.ts'],
           \  ['Template', 'component.html'],
-          \  ['Spec', 'spec.ts'],
+          \  ['Spec', 'component.spec.ts'],
           \  ['Stylesheet', 'component.' . g:angular_cli_stylesheet_format] ]
     for element in elements_with_relation
       silent execute 'command! -nargs=? -complete=customlist,angular_cli#' . element[0] .'Files ' . mode[0] . element[0] . ' call angular_cli#EditRelatedFile(<q-args>, "'. mode[1] .'", "' .element[1]. '")'
@@ -72,7 +72,12 @@ endfunction
 function! angular_cli#CreateDefaultStyleExt() abort
   let re = "\'" . '(?<=(?i)styleext.:..)\w+' . "\'"
   let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' angular.json'
-  let g:angular_cli_stylesheet_format = system('grep -Po ' . re . target)[:-2]
+  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . target)[:-2]
+  " if this plugin was loaded but no ng config found, assume ionic 
+  " (default .scss)
+  if v:shell_error
+    let g:angular_cli_stylesheet_format = 'css'
+  endif
 endfunction
 
 function! angular_cli#CreateDestroyCommand() abort
@@ -166,14 +171,16 @@ endfunction
 function! angular_cli#EditSpecFile(file, command) abort
   let file = a:file
   if file == ''
+    if expand('%') =~ 'component.spec.ts'
+      execute 'edit' g:last_file_jump
+      return
+    endif
+    let g:last_file_jump = expand('%')
     let base_file = substitute(expand('%'), '.html', '', '')
     let base_file = substitute(base_file, '.ts', '', '')
     let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
     let file = base_file . '.spec.ts'
   endif 
-  if expand('%') =~ 'component.spec.ts'
-    return
-  endif
   call angular_cli#EditFileIfExist(file, a:command, '.ts')
 endfunction
 
