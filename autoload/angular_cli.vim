@@ -70,9 +70,9 @@ function! angular_cli#CreateGenerateCommands() abort
 endfunction
 
 function! angular_cli#CreateDefaultStyleExt() abort
-  let re = "\'" . '(?<=(?i)styleext.:..)\w+' . "\'"
+  let re = "\'" . '(?<=styles\.).*(?=")' . "\'"
   let target = empty(glob('angular.json')) ? ' .angular-cli.json' : ' angular.json'
-  let g:angular_cli_stylesheet_format = system(g:gnu_grep . ' -Po ' . re . target)[:-2]
+  let g:angular_cli_stylesheet_format = systemlist(g:gnu_grep . ' -Po ' . re . target)[0]
   " if this plugin was loaded but no ng config found, assume ionic 
   " (default .scss)
   if v:shell_error
