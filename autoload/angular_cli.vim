@@ -178,9 +178,9 @@ function! angular_cli#EditSpecFile(file, command) abort
       return
     endif
     let g:last_file_jump = expand('%')
-    let base_file = substitute(expand('%'), '.html', '', '')
-    let base_file = substitute(base_file, '.ts', '', '')
-    let base_file = substitute(base_file, '.' . g:angular_cli_stylesheet_format, '', '')
+    let base_file = substitute(expand('%'), '\.html$', '', '')
+    let base_file = substitute(base_file, '\.ts$', '', '')
+    let base_file = substitute(base_file, '\.' . g:angular_cli_stylesheet_format . '$', '', '')
     let file = base_file . '.spec.ts'
   endif 
   call angular_cli#EditFileIfExist(file, a:command, '.ts')
